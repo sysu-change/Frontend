@@ -1,21 +1,59 @@
-# vue-cli多页面应用
-> A Vue.js project
+# 第一阶段vue的架构
 
-### 文章地址：http://www.cnblogs.com/fengyuqing/p/vue_cli_webpack.html
+![1](assets/1.PNG)
 
-## Build Setup
++ clone后本，进入项目文件夹（如上），执行npm insatll 安装依赖。
 
-``` bash
-# install dependencies
-npm install
++ 之后其他文件夹不用管，进入src文件夹，如下：
 
-# serve with hot reload at localhost:8080
-npm run dev
+  |---src
 
-# build for production with minification
-npm run build
-```
-#### 针对在webstorm里面不能hot reload的问题大家可以按如下步骤设置一下就行：
-> Please try turning 'Safe write' option ( Settings | Appearance & Behavior | System Settings | Use "safe write" (save changes to temporary file first)) off
+  ​	|---common：存放一些公共文件如.css，也可以放一些公共图片
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+  ​	|---components
+
+  ​		|---Hello:测试文件
+
+  ​		|---Index
+
+  ​			|---Index.vue：实现初始页面的UI
+
+  ​		|---Register
+
+  ​			|---Register.vue:实现注册页面的UI
+
+  ​		|---Signin
+
+  ​			|---Signin.vue：实现登录页面的UI
+
+  ​	|---module
+
+  ​		|---index
+
+  ​			|---image：存放初始页面需要用到的一些图片
+
+  ​			|---App.vue：中间组件，用来综合其他index页面内需要用到的组件
+
+  ​			|---index.html:初始页面
+
+  ​			|---index.js:初始页面的入口文件
+
+  ​		|---register
+
+  ​			|---image：同上
+
+  ​			|---App.vue:中间组件，用来综合其他注册页面需要用到的组件（在component文件夹下）
+
+  ​			|---register.html:注册页面
+
+  ​			|---register.js:注册页面的入口文件
+
+  ​		|---signin
+
+  ​			|---image：同上
+
+  ​			|---App.vue：同样是登录页面的中间组件
+
+  ​			|---signin.html:登录页面
+
+  ​			|---signin.js：登录页面的入口文件
