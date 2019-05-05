@@ -3,22 +3,34 @@
   <el-container >
   <el-header></el-header>
   <el-main>
-        <el-form ref="loginForm" :model="form" :rules="rules" label-width="80px" class="login-box">
-    <h3 class="login-title" >登录</h3>
-    <el-divider class="line1" content-position="left">开始你的快乐之旅吧</el-divider>
-      
-    <el-input class="pass_word" placeholder="请输入密码" v-model="input1" :disabled="false" show-password></el-input>
-    <el-input class="phone_num" placeholder="请输入手机号" v-model="input2" :disabled="false" ></el-input>
-    <el-input class="pass_code" placeholder="请输入验证码" v-model="input3" :disabled="false" ></el-input>
-       
-       <el-breadcrumb separator-class="el-icon-arrow-right">
-       <el-breadcrumb-item :to="{ path: '/' }" class="bar">注册</el-breadcrumb-item>
-        </el-breadcrumb>
-        
-        <el-button type="success" class="login_button">
-            登录
-        </el-button>
-      </el-form>
+       <div>
+    <el-form ref="loginForm" :model="form" :rules="rules" label-width="80px" class="login-box">
+      <h3 class="login-title">欢迎登录</h3>
+      <el-form-item label="手机号" prop="phone_num" >
+        <el-input type="text" placeholder="请输入手机号" v-model="form.phone_num"/>
+      </el-form-item>
+      <el-form-item label="密码" prop="password">
+        <el-input type="password" placeholder="请输入密码" v-model="form.password"/>
+      </el-form-item>
+      <el-form-item label="验证码" prop="code">
+        <el-input type="text" placeholder="请输入验证码" v-model="form.code"/>
+      </el-form-item>
+      <el-form-item>
+        <el-button class="submit" type="success" v-on:click="onSubmit('loginForm')">登录</el-button>
+      </el-form-item>
+    </el-form>
+
+    <el-dialog
+      title="温馨提示"
+      :visible.sync="dialogVisible"
+      width="30%"
+      :before-close="handleClose">
+      <span>请输入正确信息</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
+  </div>
   </el-main>
   <el-footer></el-footer>
 </el-container>
@@ -30,17 +42,50 @@
 
 
   <script>
-    export default{
-      el: '#app',
-      data() {
+     export default {
+    name: "Login",
+    data() {
       return {
-        input1: '',
-        input2: '',
-        input3: ''
+        form: {
+          username: '',
+          password: '',
+          code:''
+        },
 
+        // 表单验证，需要在 el-form-item 元素中增加 prop 属性
+        rules: {
+          phone_num: [
+            {required: true, message: '手机号不可为空', trigger: 'blur'}
+          ],
+          password: [
+            {required: true, message: '密码不可为空', trigger: 'blur'}
+          ],
+          code:[
+            { required: true, message: '验证码不可为空', trigger: 'blur'}
+        ]
+
+        },
+        
+
+        // 对话框显示和隐藏
+        dialogVisible: false
+      }
+    },
+    methods: {
+      onSubmit(formName) {
+        // 为表单绑定验证功能
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            // 使用 vue-router 路由到指定页面，该方式称之为编程式导航
+            this.$router.push("/index");
+          } else {
+            this.dialogVisible = true;
+            return false;
+          }
+        });
       }
     }
-    }
+  }
   </script>
 
 <style scoped>
@@ -48,7 +93,7 @@
   .el-header {
     background-color: #00b38a;
     color: #333;
-    height: 20vh;
+    height: 40vh;
     width: 100%;
     
   }
@@ -82,47 +127,34 @@
 }
   
   .login-box {
-    position: absolute;
     border: 1px solid #DCDFE6;
-    width: 500px;
-    height:350px;
-    left: 60vh;
-    top: 125px;
-     
+    width: 400px;
+    height:300px;
+    margin: 180px auto;
+    padding: 0px 200px 20px 35px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
     box-shadow: 0 0 25px #909399;
   }
-  
-  .pass_word{
-    position: absolute;;
-    left: 5px;
-    top:80px;
-    width:300px;
-    
-  }
-  
-  .phone_num{
-    position: absolute;
-    left: 5px;
-    top:140px;
-    width:300px;
-  }
 
-  .pass_code{
-    position: absolute;
-    left: 5px;
-    top:200px;
-    width:150px;
+  .submit{
+    position: relative;
+    width: 200px;
+    left: -100px;
   }
+  
+ 
 
 .login-title {
-    text-align: center;
+    text-align: left;
     font: 1em sans-serif;
     color: #00b38a;
   }
 
 .login_button{
   position: absolute;
-  left: 50px;
+  left: 150px;
   width: 150px;
   height: 40px;
   top: 260px;
