@@ -1,6 +1,6 @@
 <template>
 <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="regist-box">
-  <span>请填写基本信息</span>
+  <div id="header" class=text>请填写基本信息</div>
 
   <el-form-item label="学号" prop="number">
     <el-input v-model="ruleForm.number"></el-input>
@@ -19,12 +19,12 @@
     <el-col :span="5">
       <el-form-item prop="semester">
         <el-select  placeholder="选择年级" v-model="ruleForm.semester" style="width: 100%;">
-            <el-option label="大一" value="1"></el-option>
-            <el-option label="大二" value="2"></el-option>
-            <el-option label="大三" value="3"></el-option>
-            <el-option label="大四" value="4"></el-option>
-            <el-option label="研一" value="5"></el-option>
-            <el-option label="研二" value="6"></el-option>
+            <el-option label="大一" value="大一"></el-option>
+            <el-option label="大二" value="大二"></el-option>
+            <el-option label="大三" value="大三"></el-option>
+            <el-option label="大四" value="大四"></el-option>
+            <el-option label="研一" value="研一"></el-option>
+            <el-option label="研二" value="研二"></el-option>
         </el-select>
       </el-form-item>
     </el-col>
@@ -63,7 +63,7 @@
     
   </el-form-item>
 
-     <el-link class="link" type="success" @click="onLogin()">已有账号？立即登录！</el-link>
+     <el-link class="link" type="success" @click="onLogin">已有账号？立即登录！</el-link>
 </el-form>
 </template>
 
@@ -103,8 +103,8 @@
         },
         rules: {
           number: [
-            { required: true, message: '请输入6位学号', trigger: 'change' },
-            { min: 6, max: 6, message: '请输入6位学号', trigger: 'change' }
+            { required: true, message: '请输入8位学号', trigger: 'change' },
+            { min: 8, max: 8, message: '请输入8位学号', trigger: 'change' }
           ],
           name:[
             { required: true, message: '请输入姓名', trigger: 'change' }
@@ -139,14 +139,29 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            this.updateRegister();
+            alert("submit");
           } else {
             console.log('error submit!!');
             return false;
           }
         });
       },
-      
+      updateRegister:function() {
+        var jj={"sid":this.ruleForm.number,"name":this.ruleForm.name,"age":this.ruleForm.age,"sex":"男","grade":this.ruleForm.semester,"major":this.ruleForm.major,"phone_num":this.ruleForm.phone_num,"password":this.ruleForm.pass};
+        this.$http.post('http://localhost:8080/module/register',jj).then(function(res){
+                    alert("445");
+                    if(res.status==400) {
+                      alert("注册失败");
+                    }
+                    else if(res.status==200) {
+                      alert(res.data.msg);
+                    }
+                }).catch(function(err){
+                    //console.log(err);
+                    alert("1");
+                });
+      },
       onLogin(){
           this.$router.push("/Signin");
       }
@@ -163,17 +178,23 @@
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     box-shadow: 0 0 25px #909399;
+    background-color: white;
   }
   .regist-button{
     position: relative;
      left: 60px;
     width: 60%;
-
   }
-
   .link{
     
      position: relative;
      left: 200px;
+  }
+  .text{
+    color:#85CE61;
+  }
+  #header{
+    text-align: center;
+    margin-top:4px;
   }
 </style>

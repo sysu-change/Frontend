@@ -1,19 +1,17 @@
 <template>
   <div id="app">
-    <img src="./images/logo.png">
-    <div>详情内容</div>
-	<Hello></Hello>
+	  <Register></Register>
   </div>
 </template>
 
 <script>
   import 'common/css/reset.css';
-  import Regster from 'components/Register/Register'
+  import Register from 'components/Register/Register'
 
   export default {
     name: 'app',
     components: {
-      Regster
+      Register
     }
   }
 </script>
