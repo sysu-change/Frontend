@@ -107,7 +107,7 @@ export default {
   z-index: 1;
 }
 .el-container {
-  background-color: #ffffff;
+  background-color: #00b38a;
   margin-bottom: 0px;
   width: 100%;
   height: 100vh;

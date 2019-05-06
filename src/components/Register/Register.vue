@@ -148,7 +148,7 @@
         });
       },
       updateRegister:function() {
-        var jj={"sid":this.ruleForm.number,"name":this.ruleForm.name,"age":this.ruleForm.age,"sex":"男","grade":this.ruleForm.semester,"major":this.ruleForm.major,"phone_num":this.ruleForm.phone_num,"password":this.ruleForm.pass};
+        var jj={"sid":this.ruleForm.number,"name":this.ruleForm.name,"age":this.ruleForm.age,"sex":"0","grade":this.ruleForm.semester,"major":this.ruleForm.major,"phone_num":this.ruleForm.phone_num,"password":createHash('sha512').update(this.ruleForm.pass).digest('hex').toUpperCase()};
         
         this.$http({
           method:'post',
@@ -160,6 +160,7 @@
                     if(res.status==400) {
                       alert("注册失败");
                     }
+
                     else if(res.status==200) {
                       alert(res.data.msg);
                     }
@@ -197,7 +198,7 @@
      left: 200px;
   }
   .text{
-    color:#85CE61;
+    color:#00b38a;
   }
   #header{
     text-align: center;
