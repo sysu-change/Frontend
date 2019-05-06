@@ -2,7 +2,7 @@
 
 ![1](assets/1.PNG)
 
-+ clone后本，进入项目文件夹（如上），执行npm insatll 安装依赖。
++ `clone`后，进入项目文件夹（如上），执行`npm insatll `和`npm i element-ui -S`安装依赖。
 
 + 之后其他文件夹不用管，进入src文件夹，如下：
 

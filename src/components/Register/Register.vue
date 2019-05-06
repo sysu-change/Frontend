@@ -149,7 +149,13 @@
       },
       updateRegister:function() {
         var jj={"sid":this.ruleForm.number,"name":this.ruleForm.name,"age":this.ruleForm.age,"sex":"男","grade":this.ruleForm.semester,"major":this.ruleForm.major,"phone_num":this.ruleForm.phone_num,"password":this.ruleForm.pass};
-        this.$http.post('http://localhost:8080/module/register',jj).then(function(res){
+        
+        this.$http({
+          method:'post',
+          url:'http://localhost:8082/module/register',
+          widthCredentials:false,
+          data:jj
+        }).then(function(res){
                     alert("445");
                     if(res.status==400) {
                       alert("注册失败");
